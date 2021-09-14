@@ -22,6 +22,7 @@ This project is a school management system has MapstructApi, Logger , DTO layer,
 - H2 Database
 - MapStruct
 - Swagger UI
+- jUnit
 
 ### Project Structure
 
