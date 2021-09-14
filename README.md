@@ -65,6 +65,7 @@ h2 Database URL: `http://localhost:8080/h2-console/`
 * Find by ID: `GET /api/instructors/{id}`
 * Update Instructor : `PUT /api/instructors/{id}`
 * Delete Instructor : `DELETE /api/instructors/{id}`
+* Change Salary : `PUT /api/instructors/salary/{id}`
 
 
 #### Exception Logs
