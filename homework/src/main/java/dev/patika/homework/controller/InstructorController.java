@@ -3,10 +3,15 @@ package dev.patika.homework.controller;
 import dev.patika.homework.dto.InstructorDTO;
 import dev.patika.homework.dto.SalaryDTO;
 import dev.patika.homework.model.Instructor;
+import dev.patika.homework.model.SalaryLogger;
 import dev.patika.homework.service.InstructorService;
 import dev.patika.homework.util.ClientRequestInfo;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,4 +63,11 @@ public class InstructorController {
         return new ResponseEntity<>(instructorService.updateSalary(id, salaryDTO), HttpStatus.OK);
     }
 
+    @GetMapping("/salariesWithDate")
+    public ResponseEntity<Page<List<SalaryLogger>>> getAllTransactionsWithDate(@ApiParam(value = "changed salaries with date", example = "05/07/2021")
+                                                                               @RequestParam String changedDate,
+                                                                               @PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+        return new ResponseEntity<>(this.instructorService.getAllTransactionsWithDate(changedDate,pageable), HttpStatus.OK);
+    }
 }

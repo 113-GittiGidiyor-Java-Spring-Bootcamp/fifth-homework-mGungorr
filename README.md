@@ -42,7 +42,8 @@ Main application URL: `http://localhost:8080`
 
 Swagger URL: `http://localhost:8080/swagger-ui.html#`
 
-h2 Database URL: `http://localhost:8080/h2-console/`   (username: sa, password: password)
+h2 Database URL: `http://localhost:8080/h2-console/`   
+(username: sa, password: // no password)
 
 #### Courses
 * Save a New Course : `POST /api/courses`
@@ -64,7 +65,8 @@ h2 Database URL: `http://localhost:8080/h2-console/`   (username: sa, password: 
 * Find by ID: `GET /api/instructors/{id}`
 * Update Instructor : `PUT /api/instructors/{id}`
 * Delete Instructor : `DELETE /api/instructors/{id}`
-
+* Change Salary : `PUT /api/instructors/salary/{id}`
+* Salaries with date : `GET /salariesWithDate}`
 
 #### Exception Logs
 * Show Exception Logs : `GET /api/exception-logs`
