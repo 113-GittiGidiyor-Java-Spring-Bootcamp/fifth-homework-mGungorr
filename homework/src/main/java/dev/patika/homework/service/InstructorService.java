@@ -11,11 +11,15 @@ import dev.patika.homework.model.enumaration.SalaryUpdateType;
 import dev.patika.homework.repository.InstructorDAO;
 import dev.patika.homework.repository.SalaryLogDAO;
 import dev.patika.homework.util.ClientRequestInfo;
+import dev.patika.homework.util.SalaryValidatorUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -144,8 +148,8 @@ public class InstructorService {
         }
         SalaryLogger salaryLogger = new SalaryLogger();
         salaryLogger.setInstructorID(instructor.getId());
-        salaryLogger.setSalaryAfter(salaryAfter);/////////////////////////////
-        salaryLogger.setSalaryBefore(currentSalary);/////////////////////////////
+        salaryLogger.setSalaryAfter(salaryAfter);
+        salaryLogger.setSalaryBefore(currentSalary);
         salaryLogger.setSalaryChangeDate(LocalDate.now());
         salaryLogger.setClientURL(clientRequestInfo.getClientURL());
         salaryLogger.setClientIpAdress(clientRequestInfo.getClientIpAdress());
@@ -155,4 +159,10 @@ public class InstructorService {
         return instructor;
     }
 
+    public Page<List<SalaryLogger>> getAllTransactionsWithDate(String changedDate, Pageable pageable) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        SalaryValidatorUtil.validateSalary(changedDate,formatter);
+        LocalDate changedDateResult = LocalDate.parse(changedDate,formatter);
+        return this.salaryLogDAO.findAllSalaryByChangeDate(changedDateResult,pageable);
+    }
 }
